@@ -1,0 +1,17 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+流程平台 -> 流程平台: 登录
+流程平台 -> 流程平台: JWT token生成
+流程平台 --> UPC: 页面跳转，携带token
+UPC -> UPC: 获取token
+UPC -> UPC: token校验通过
+UPC -> gateway: api请求
+gateway -> gateway: api数据一致性校验
+gateway -> gateway: JWT统一校验
+gateway -> server: api路由请求
+gateway <-- server: Response
+UPC <-- gateway: Response
+@enduml

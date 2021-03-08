@@ -41,12 +41,11 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         JwtSecurityProperties jwtSecurityProperties = SpringContextHolder.getBean(JwtSecurityProperties.class);
         String requestRri = httpServletRequest.getRequestURI();
         //获取request token
-        String token = null;
-        String bearerToken = httpServletRequest.getHeader(JwtSecurityProperties.HEADER);
-        log.debug("从requst获取的|bearerToken={}",bearerToken);
-        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(JwtSecurityProperties.TOKEN_START_WITH)) {
-            token = bearerToken.substring(JwtSecurityProperties.TOKEN_START_WITH.length());
-        }
+        String token = httpServletRequest.getHeader(JwtSecurityProperties.HEADER);
+        log.debug("从requst获取的|token={}",token);
+//        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(JwtSecurityProperties.TOKEN_START_WITH)) {
+//            token = bearerToken.substring(JwtSecurityProperties.TOKEN_START_WITH.length());
+//        }
 
         if (StringUtils.hasText(token) && jwtTokenUtils.validateToken(token)) {
             Authentication authentication = jwtTokenUtils.getAuthentication(token);

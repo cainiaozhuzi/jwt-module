@@ -1,7 +1,6 @@
 #jwt
 jwt:
-  # 使用Base64对该令牌进行编码 (制定您的密钥) 256 ytkj cnzz
-  base64-secret: 4aecf88b17dc6a36b2b67b3a12d91d27ytkjcnzz47fad79add3580342f32661119289a06
+  base64-secret: ytkj62672000
   # 令牌过期时间 此处单位/毫秒 24小时
   token-validity-in-seconds: 14400000
   #放行url（静态资源已放行）

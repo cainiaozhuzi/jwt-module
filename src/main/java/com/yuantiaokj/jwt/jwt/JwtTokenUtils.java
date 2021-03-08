@@ -13,6 +13,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
+import java.nio.ByteBuffer;
 import java.security.Key;
 import java.util.Arrays;
 import java.util.Collection;
@@ -54,11 +55,12 @@ public class JwtTokenUtils implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() {
-
         byte[] keyBytes = Decoders.BASE64.decode(jwtSecurityProperties.getBase64Secret());
-        log.debug("keyBytes length={}", keyBytes.length);
-
-        this.key = Keys.hmacShaKeyFor(keyBytes);
+        //MAC-SHA algorithms MUST have a size >= 256 bits
+        ByteBuffer byteBuffer = ByteBuffer.allocate(256);
+        byteBuffer.put(keyBytes);
+        log.debug("keyBytes length={},byteBuffer length={}", keyBytes.length,byteBuffer.array().length);
+        this.key = Keys.hmacShaKeyFor(byteBuffer.array());
     }
 
 
@@ -173,9 +175,9 @@ public class JwtTokenUtils implements InitializingBean {
         if (StringUtils.isEmpty(token)) {
             return null;
         }
-        if (StringUtils.hasText(token) && token.startsWith(JwtSecurityProperties.TOKEN_START_WITH)) {
-            token = token.substring(JwtSecurityProperties.TOKEN_START_WITH.length());
-        }
+//        if (StringUtils.hasText(token) && token.startsWith(JwtSecurityProperties.TOKEN_START_WITH)) {
+//            token = token.substring(JwtSecurityProperties.TOKEN_START_WITH.length());
+//        }
 
         Claims claims;
         try {

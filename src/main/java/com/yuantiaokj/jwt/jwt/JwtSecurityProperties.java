@@ -22,8 +22,8 @@ import java.util.List;
 @ConfigurationProperties(prefix = "jwt")
 public class JwtSecurityProperties {
 
-    public static final String HEADER="authorization";
-    public static final String TOKEN_START_WITH="bearer";
+    public static final String HEADER="token";
+    //public static final String TOKEN_START_WITH="bearer";
 
     /**
      * Base64对该令牌进行编码

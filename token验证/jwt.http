@@ -3,17 +3,17 @@
 ####测试
 
 # test Session
-GET http://localhost:80/jwt/JwtTokenController/getToken
+POST http://localhost:80/jwt/JwtTokenController/getToken
 Accept: */*
 Cache-Control: no-cache
 
 ####测试
 
 # test Session
-GET http://localhost:80/jwt/JwtTokenController/noToken
+POST http://localhost:80/jwt/JwtTokenController/getTokenUser
 Accept: */*
 Cache-Control: no-cache
-authorization: bearer eyJhbGciOiJIUzI1NiIsInppcCI6IkRFRiJ9.eNqqVkosLclQslJKTMnNzNNJTEspVtJRyirJBAoZGhkZAznFpUkg-aTkZCAnM7FEycrQ1NLQzNzAxMBcRym1ogAqYGFiYWBeCwAAAP__.k4FJGbp0rsNg5HTnDpjn3wkU8BLTfyITnfgMtsmHB3A
+token: eyJhbGciOiJIUzI1NiIsInppcCI6IkRFRiJ9.eNqqVkosLclQslJKTMnNzNNJTEspVtJRyirJBAoZGhkD2cWlSUB2cl5VFZCTmViiZGVoZmhqaGliZmKso5RaUQARMDKwNDAxrgUAAAD__w.tbWqDiaNHH8qfHragQHfLrQLJq_gCDbXspruTXtlZ7g
 
 {
 }
