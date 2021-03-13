@@ -8,7 +8,7 @@
         <version>2.2.4.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.yuantiaokj.module</groupId>
+    <groupId>com.yuantiaokj.modules</groupId>
     <artifactId>jwt-module</artifactId>
     <version>1.4</version>
     <modelVersion>4.0.0</modelVersion>
