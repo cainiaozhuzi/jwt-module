@@ -4,8 +4,9 @@ jwt:
   # 令牌过期时间 此处单位/毫秒 24小时
   token-validity-in-seconds: 14400000
   #放行url（静态资源已放行）
-  permitMatchers:
+  permit-matchers:
     - /JwtTokenController/getToken
+    - /JwtTokenController/getToken1
 
 
 server:

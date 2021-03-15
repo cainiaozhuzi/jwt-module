@@ -42,25 +42,24 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Component
-public class JwtTokenUtils implements InitializingBean {
+public class JwtTokenUtils {
 
 
-    private final JwtSecurityProperties jwtSecurityProperties;
+    private static JwtSecurityProperties jwtSecurityProperties;
     private static final String AUTHORITIES_KEY = "auth";
-    private Key key;
+    private static Key key=getKey();
 
-    public JwtTokenUtils(JwtSecurityProperties jwtSecurityProperties) {
-        this.jwtSecurityProperties = jwtSecurityProperties;
+    public JwtTokenUtils(JwtSecurityProperties jwtSecurityProperties1) {
+        jwtSecurityProperties = jwtSecurityProperties1;
     }
 
-    @Override
-    public void afterPropertiesSet() {
-        byte[] keyBytes = Decoders.BASE64.decode(jwtSecurityProperties.getBase64Secret());
+    private static Key getKey() {
+        byte[] keyBytes = Decoders.BASE64.decode(JwtSecurityProperties.SECRET);
         //MAC-SHA algorithms MUST have a size >= 256 bits
         ByteBuffer byteBuffer = ByteBuffer.allocate(256);
         byteBuffer.put(keyBytes);
-        log.debug("keyBytes length={},byteBuffer length={}", keyBytes.length,byteBuffer.array().length);
-        this.key = Keys.hmacShaKeyFor(byteBuffer.array());
+        log.debug("keyBytes length={},byteBuffer length={}", keyBytes.length, byteBuffer.array().length);
+        return Keys.hmacShaKeyFor(byteBuffer.array());
     }
 
 
@@ -80,7 +79,7 @@ public class JwtTokenUtils implements InitializingBean {
      * @param permissionList 权限list
      * @return String jwt
      */
-    public String createToken(String userId, String userName, List<String> permissionList) {
+    public static String createToken(String userId, String userName, List<String> permissionList) {
 
         String newStr = permissionList.stream().collect(Collectors.joining(","));
 
@@ -101,7 +100,7 @@ public class JwtTokenUtils implements InitializingBean {
      * @param token jwt
      * @return Date
      */
-    public Date getExpirationDateFromToken(String token) {
+    public static Date getExpirationDateFromToken(String token) {
         Date expiration;
         try {
             final Claims claims = getClaimsFromToken(token);
@@ -118,7 +117,7 @@ public class JwtTokenUtils implements InitializingBean {
      * @param token jwt
      * @return Authentication
      */
-    public Authentication getAuthentication(String token) {
+    public static Authentication getAuthentication(String token) {
         Claims claims = Jwts.parser()
                 .setSigningKey(key)
                 .parseClaimsJws(token)
@@ -143,7 +142,7 @@ public class JwtTokenUtils implements InitializingBean {
      * @param authToken jwt
      * @return boolean
      */
-    public boolean validateToken(String authToken) {
+    public static boolean validateToken(String authToken) {
         try {
             Jwts.parser().setSigningKey(key).parseClaimsJws(authToken);
             return true;
@@ -169,7 +168,7 @@ public class JwtTokenUtils implements InitializingBean {
      * @param token jwt获取 Claims
      * @return Claims
      */
-    public Claims getClaimsFromToken(String token) {
+    public static Claims getClaimsFromToken(String token) {
 
         //判断为空
         if (StringUtils.isEmpty(token)) {

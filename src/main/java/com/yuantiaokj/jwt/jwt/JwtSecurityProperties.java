@@ -23,12 +23,7 @@ import java.util.List;
 public class JwtSecurityProperties {
 
     public static final String HEADER="token";
-    //public static final String TOKEN_START_WITH="bearer";
-
-    /**
-     * Base64对该令牌进行编码
-     */
-    private String base64Secret;
+    public static final String SECRET="ytkj62672000";
 
     /**
      * 令牌过期时间 此处单位/毫秒

@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.yuantiaokj.modules</groupId>
     <artifactId>jwt-module</artifactId>
-    <version>1.4</version>
+    <version>1.5</version>
     <modelVersion>4.0.0</modelVersion>
 
     <dependencies>

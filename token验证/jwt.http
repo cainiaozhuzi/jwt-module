@@ -3,7 +3,7 @@
 ####测试
 
 # test Session
-POST http://localhost:80/jwt/JwtTokenController/getToken
+POST http://localhost:80/jwt/JwtTokenController/getToken1
 Accept: */*
 Cache-Control: no-cache
 
